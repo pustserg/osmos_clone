@@ -1,10 +1,16 @@
-// import {Person} from "private-person.js";
 import {Circle} from "shapes/circle.js";
-// let person = new Person("John", "Doe");
-// console.log(person.greet("Mike"));
 let circle = new Circle(100, 100, 50);
-console.log(circle.inspect());
 
+function resizeCanvas() {
+  var canvas = document.getElementById("canvas");
+  canvas.width = document.body.clientWidth;
+  canvas.height = window.innerHeight;
+}
+resizeCanvas()
+
+window.onresize = function(){
+  resizeCanvas();
+};
 let cnvs = document.getElementById("canvas");
 let ctx = cnvs.getContext("2d");
 
