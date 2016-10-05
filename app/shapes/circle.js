@@ -1,4 +1,5 @@
 import {Point} from "../point.js"
+const eps = 4;
 
 export class Circle {
   constructor(centerX, centerY, radius) {
@@ -20,9 +21,11 @@ export class Circle {
     this.center = new Point(this.center.x + dX, this.center.y + dY);
   }
 
-  meetCanvas(canvas) {
-    var meetX = (this.center.x + this.raduis) > canvas.width
-    var meetY = (this.center.y + this.radius) > canvas.height
-    return meetX || meetY
+  meetVerticalSide(canvas) {
+    return (this.center.x + this.radius) > canvas.width || (this.center.x - this.radius) < 0
+  }
+
+  meetHorizontalSide(canvas) {
+    return (this.center.y + this.radius) > canvas.height || (this.center.y - this.radius) < 0
   }
 }
