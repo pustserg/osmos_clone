@@ -1,13 +1,12 @@
-import {Circle} from "shapes/circle.js";
-let circle = new Circle(100, 100, 50);
+import {Bubble} from "bodies/bubble.js";
+let bubble = new Bubble([200, 200, 20], [3, 5]);
 
 function resizeCanvas() {
   var canvas = document.getElementById("canvas");
   canvas.width = document.body.clientWidth;
-  canvas.height = window.innerHeight;
+  canvas.height = window.innerHeight - 10;
 }
-resizeCanvas()
-
+resizeCanvas();
 window.onresize = function(){
   resizeCanvas();
 };
@@ -23,30 +22,19 @@ window.requestAnimationFrame = function(callback) {
 
 }();
 
-function animate(circle, canvas, context, startTime) {
+function animate(bubble, canvas, context, startTime) {
   // update
   var time = (new Date()).getTime() - startTime;
 
-  var linearSpeed = 0.1;
-  var verticalSpeed = 1;
-  // pixels / second
-  var dX = linearSpeed * time / 1000;
-  var dY = verticalSpeed * time / 1000;
-  // clear
-  // meet wall
-  if (!(circle.meetCanvas(canvas))) {
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    circle.moveCenterBy(dX, dY);
-    circle.drawInContext(context);
-  }
+  bubble.move(context)
   // request new frame
   requestAnimationFrame(function() {
-    animate(circle, cnvs, ctx, startTime);
+    animate(bubble, cnvs, ctx, startTime);
   });
 }
 
 setTimeout( function() {
     var startTime = (new Date()).getTime();
-    animate(circle, cnvs, ctx, startTime);
+    animate(bubble, cnvs, ctx, startTime);
     }, 1000
   );
