@@ -1,8 +1,5 @@
 import {Bubble} from "bodies/bubble.js";
-const minRadius = 20;
-const maxRadius = 60;
-const minSpeed = 0.3;
-const maxSpeed = 8;
+import {randRadius, randSpeed} from "helpers/rand.js"
 let bubbles = [];
 bubbles.push(new Bubble({x: 200, y: 200, radius: 20}, { x: 3, y: 5 }));
 
@@ -10,20 +7,6 @@ function resizeCanvas() {
   var canvas = document.getElementById("canvas");
   canvas.width = document.body.clientWidth;
   canvas.height = window.innerHeight - 10;
-}
-
-function randRadius() {
-  return Math.floor(Math.random() * (maxRadius - minRadius)) + minRadius;
-}
-
-function randSpeed() {
-  var signBase = Math.random();
-  var speed = Math.random() * (maxSpeed - minSpeed) + minSpeed;
-  if (signBase < 0.5) {
-    return speed;
-  } else {
-    return - speed;
-  }
 }
 
 resizeCanvas();
