@@ -21,4 +21,21 @@ export class Bubble {
     this.circle.moveCenterBy(dX, dY);
     this.circle.drawInContext(context);
   }
+
+  center() {
+    return this.circle.centerCoords();
+  }
+
+  radius() {
+    return this.circle.radius
+  }
+
+  moveVector() {
+    return { x: this.linearSpeed, y: this.verticalSpeed }
+  }
+
+  turn(newVector) {
+    this.linearSpeed += newVector.dX;
+    this.verticalSpeed += newVector.dY;
+  }
 }
