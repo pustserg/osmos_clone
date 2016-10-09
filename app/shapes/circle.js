@@ -11,6 +11,10 @@ export class Circle {
     return "center: " + this.center.inspect() + " radius: " + this.radius;
   }
 
+  centerCoords() {
+    return { x: this.center.x, y: this.center.y }
+  }
+
   drawInContext(context) {
     context.beginPath();
     context.arc(this.center.x, this.center.y, this.radius, 0, 2*Math.PI, true);

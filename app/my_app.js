@@ -1,7 +1,11 @@
 import {Bubble} from "bodies/bubble.js";
-import {randRadius, randSpeed} from "helpers/rand.js"
+import {randRadius, randSpeed} from "helpers/rand.js";
+import {control} from "helpers/control.js";
+const userBubbleParams = { x: 300, y: 200, radius: 30  }
+const userBubbleSpeed = { x: randSpeed(), y: randSpeed() }
+
 let bubbles = [];
-bubbles.push(new Bubble({x: 200, y: 200, radius: 20}, { x: 3, y: 5 }));
+let userBubble = new Bubble(userBubbleParams, userBubbleSpeed);
 
 function resizeCanvas() {
   var canvas = document.getElementById("canvas");
@@ -17,9 +21,7 @@ let cnvs = document.getElementById("canvas");
 let ctx = cnvs.getContext("2d");
 
 cnvs.addEventListener('click', function(evt) {
-  var circleAttrs = { x: evt.clientX, y: evt.clientY, radius: randRadius() }
-  var randMoveVector = { x: randSpeed(), y: randSpeed() }
-  bubbles.push(new Bubble(circleAttrs, randMoveVector));
+  control(evt, userBubble, cnvs, bubbles);
 });
 
 window.requestAnimationFrame = function(callback) {
@@ -36,9 +38,12 @@ function animate(bubbles, canvas, context, startTime) {
   var time = (new Date()).getTime() - startTime;
   // clear
   context.clearRect(0, 0, canvas.width, canvas.height);
+  // move NPC bubbles
   bubbles.forEach(function(bubble){
     bubble.move(context);
   });
+  // move user bubble
+  userBubble.move(context)
   // request new frame
   requestAnimationFrame(function() {
     animate(bubbles, cnvs, ctx, startTime);
